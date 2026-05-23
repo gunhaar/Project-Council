@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "EngineerOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "recommended_architecture",
+    "normal_code_components",
+    "llm_components",
+    "tools_or_functions",
+    "technical_risks",
+    "cut_for_mvp"
+  ],
+  "properties": {
+    "recommended_architecture": { "type": "string" },
+    "normal_code_components": { "type": "array", "items": { "type": "string" } },
+    "llm_components": { "type": "array", "items": { "type": "string" } },
+    "tools_or_functions": { "type": "array", "items": { "type": "string" } },
+    "technical_risks": { "type": "array", "items": { "type": "string" } },
+    "cut_for_mvp": { "type": "array", "items": { "type": "string" } }
+  }
+}

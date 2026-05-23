@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "CriticOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "biggest_flaw",
+    "overbuilt_parts",
+    "unvalidated_assumptions",
+    "what_to_cut",
+    "hard_truth"
+  ],
+  "properties": {
+    "biggest_flaw": { "type": "string" },
+    "overbuilt_parts": { "type": "array", "items": { "type": "string" } },
+    "unvalidated_assumptions": { "type": "array", "items": { "type": "string" } },
+    "what_to_cut": { "type": "array", "items": { "type": "string" } },
+    "hard_truth": { "type": "string" }
+  }
+}

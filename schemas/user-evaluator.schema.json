@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "UserEvalOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "user_value",
+    "friction_points",
+    "magic_moments",
+    "retention_hooks",
+    "dealbreakers"
+  ],
+  "properties": {
+    "user_value": { "type": "string" },
+    "friction_points": { "type": "array", "items": { "type": "string" } },
+    "magic_moments": { "type": "array", "items": { "type": "string" } },
+    "retention_hooks": { "type": "array", "items": { "type": "string" } },
+    "dealbreakers": { "type": "array", "items": { "type": "string" } }
+  }
+}
