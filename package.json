@@ -5,8 +5,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "npm run build:claude-code",
+    "build": "npm run build:claude-code && npm run build:codex",
     "build:claude-code": "node hosts/claude-code/build.mjs",
+    "build:codex": "node hosts/codex/build.mjs",
     "build:kiro": "node hosts/kiro/build.mjs",
     "clean": "rm -rf dist"
   },
