@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "DeploymentReadinessOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "deployment_strategy",
+    "ready",
+    "gaps",
+    "ship_blockers",
+    "post_ship"
+  ],
+  "properties": {
+    "deployment_strategy": { "type": "string" },
+    "ready": { "type": "array", "items": { "type": "string" } },
+    "gaps": { "type": "array", "items": { "type": "string" } },
+    "ship_blockers": { "type": "array", "items": { "type": "string" } },
+    "post_ship": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "startup-advisor-board",
-  "version": "0.1.0",
-  "description": "A panel of specialist LLM agents that critique and plan a startup idea. Host-agnostic prompts + per-host build scripts.",
+  "name": "project-councils",
+  "version": "0.2.0",
+  "description": "Specialist LLM councils for each project lifecycle phase. Advisor Council for ideation, Ship Council for the final 20%. Host-agnostic prompts + per-host build scripts.",
   "type": "module",
   "private": true,
   "scripts": {

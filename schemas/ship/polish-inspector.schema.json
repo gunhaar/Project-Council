@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "PolishAuditOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "polish_gaps",
+    "ship_blockers",
+    "post_ship"
+  ],
+  "properties": {
+    "polish_gaps": { "type": "array", "items": { "type": "string" } },
+    "ship_blockers": { "type": "array", "items": { "type": "string" } },
+    "post_ship": { "type": "array", "items": { "type": "string" } }
+  }
+}

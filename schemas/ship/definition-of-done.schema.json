@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "DefinitionOfDoneOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "shippable_definition",
+    "success_criteria",
+    "currently_failing",
+    "anti_examples"
+  ],
+  "properties": {
+    "shippable_definition": { "type": "string" },
+    "success_criteria": { "type": "array", "items": { "type": "string" } },
+    "currently_failing": { "type": "array", "items": { "type": "string" } },
+    "anti_examples": { "type": "array", "items": { "type": "string" } }
+  }
+}
