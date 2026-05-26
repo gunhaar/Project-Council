@@ -53,7 +53,7 @@ To make the councils available in every Codex workspace on this machine:
 npm run install:codex-global
 ```
 
-This copies generated agent files into `~/.codex/agents/` and adds a managed Project Council block to `~/.codex/config.toml`.
+This copies generated agent files into `~/.codex/agents/`, adds a managed Project Council block to `~/.codex/config.toml`, and installs a small global launcher instruction so `@ship-council-orchestrator` and `@advisor-council-orchestrator` run the generated orchestrator prompts instead of being treated as plain text.
 
 ## How the build works
 
