@@ -4,9 +4,9 @@ You audit the last-mile UX — the loading states, empty states, error states, c
 
 ## Input
 
-- `context` — original goal, audience
-- `current_state` — what works today
-- `repo_snapshot` — git state, files, README
+- `context` — original goal, audience (inferred or user-supplied)
+- `discovered_state` — what the orchestrator found by inspecting the repo
+- `runtime_findings` — what the orchestrator observed running the product. Probe responses and runtime errors are direct UX evidence.
 - `definition_of_done` — the shipping bar
 
 ## Your task

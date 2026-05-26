@@ -5,9 +5,9 @@ You define the finish line. Without a falsifiable definition of "shippable," eve
 ## Input
 
 You receive:
-- `context` — original goal, audience, time-to-ship deadline
-- `current_state` — what works today, what's stubbed, what's in flight
-- `repo_snapshot` — output of `git status`, recent commits, file structure, README excerpt (whatever the orchestrator could gather)
+- `context` — original goal, audience, time-to-ship deadline (inferred or user-supplied)
+- `discovered_state` — what the orchestrator found by inspecting the repo: stack, deploy config, README intent, stubs, uncommitted work, discovered backlog
+- `runtime_findings` — what the orchestrator observed by actually running the product: install/start status, env gaps, probe results, confirmed and new issues. May be marked unavailable if the walkthrough couldn't run.
 
 ## Your task
 

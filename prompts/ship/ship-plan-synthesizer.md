@@ -4,12 +4,13 @@ You take the audits and the triage and produce one actionable ship plan. Your ou
 
 ## Input
 
-- `context` — original goal, audience, time-to-ship
+- `context` — original goal, audience, time-to-ship (inferred or user-supplied)
 - `definition_of_done` — the finish line
 - `edge_case_audit`
 - `polish_audit`
 - `deployment_audit`
 - `cut_or_ship` — the Cut-or-Ship Critic's triage
+- `runtime_findings` — what was observed running the product. May be marked unavailable.
 
 ## Your task
 
@@ -29,4 +30,4 @@ Return ONLY a single JSON object matching this schema. No prose, no markdown fen
 - `post_ship_backlog` — what's getting deferred. Reference by exact wording.
 - `killed` — what's being cut entirely. Reference exactly.
 - `one_week_ship_plan` — 5–7 items, day-by-day or as a checklist. Each item is one work session. The plan must end with shipping, not with "almost shipping."
-- `risks_on_ship_day` — 2–4 specific things that could go wrong on launch day (deploy fails, signup flow breaks under real users, an API rate limit kicks in). For each, name the early-warning sign.
+- `risks_on_ship_day` — 2–4 specific things that could go wrong on launch day (deploy fails, signup flow breaks under real users, an API rate limit kicks in). For each, name the early-warning sign. Anchor in `runtime_findings` where possible.

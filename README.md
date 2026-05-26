@@ -24,10 +24,14 @@ Then in Claude Code, invoke whichever council fits your phase.
 **Trying to ship a partially-built project:**
 ```
 @ship-council-orchestrator
-goal: A weekly retro tool that texts me 3 questions every Sunday.
-time_to_ship: by next Sunday.
-audience: just me.
-current_state: SMS send/receive works locally; LLM question generation works; no deploy yet.
+```
+
+That's the minimum. The orchestrator will infer goal, audience, and current state by reading your repo, then run an end-to-end runtime walkthrough (asking before any side effect like a paid API call or a write). Override any inferred field by passing it explicitly, e.g.:
+
+```
+@ship-council-orchestrator
+audience: Show HN
+time_to_ship: by Sunday
 ```
 
 ## The two councils
@@ -57,9 +61,14 @@ Cut-or-Ship Critic  (triages everything: ship-blocker / post-ship / kill)
 Ship Plan Synthesizer
 ```
 
-The Ship Council orchestrator also reads your repo state automatically — `git status`, recent commits, README, deploy config — and feeds it into the audits. No need to summarize your own project.
+Before the audits, the orchestrator does two automatic gather phases:
 
-Output sections: final verdict, shippable definition, ordered ship blockers, post-ship backlog, killed items, one-week ship plan, risks on ship day.
+1. **Discovery (always)** — reads README, git history, package config, then greps the codebase for TODOs / FIXMEs / stubs / incomplete code paths. Infers goal and audience from the repo itself.
+2. **Runtime walkthrough (ask-before-side-effects)** — installs, starts the project, probes free / idempotent endpoints automatically, asks for explicit permission before any probe that hits a paid API or writes state. Captures runtime errors, env gaps, confirmed bugs, and observed UX gaps.
+
+Both feed into every specialist downstream. Edge cases are anchored in observed behavior, not speculation.
+
+Output sections: discovered state, observed at runtime, final verdict, shippable definition, ordered ship blockers, post-ship backlog, killed items, one-week ship plan, risks on ship day.
 
 ## Repository layout
 
