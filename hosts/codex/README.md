@@ -1,12 +1,57 @@
-# Codex CLI packaging — placeholder
+# Codex packaging
 
-Codex CLI support is not yet implemented. Codex's non-interactive mode (`codex exec`) is well-suited to running individual specialist prompts, but its subagent / multi-agent orchestration story is less mature than Claude Code's — there is no direct equivalent of `.claude/agents/` that I want to commit to without verifying.
+Builds the shared prompts in `prompts/` and schemas in `schemas/` into Codex custom agent files for the Advisor and Ship councils.
 
-## Workarounds for now
+## Build
 
-- **Single-shot specialists.** Pipe one of the prompt bodies in `prompts/` into `codex exec` along with a project context. You'll get the JSON output for that one role. Useful for ad-hoc consultations.
-- **Manual orchestration.** Run PM, then Engineer, then User Evaluator and Critic, then Synthesizer in sequence, copying each output as input to the next. Tedious but works.
+From the repo root:
 
-## What would unblock proper packaging
+```
+npm run build:codex
+```
 
-Either (a) Codex CLI adds a subagent file convention, or (b) we add a thin Node runner that shells out to `codex exec` per stage and validates outputs against the schemas. The latter would re-introduce a runtime component we deliberately avoided in v1.
+Output lands in `dist/codex/.codex/`:
+
+- `config.toml` registers all Advisor Council and Ship Council agents.
+- `agents/*.toml` contains one self-contained specialist or orchestrator definition.
+
+## Install into a project
+
+If the target project does not already have a `.codex/` directory, copy the generated directory into the project root:
+
+```
+cp -R dist/codex/.codex /path/to/your/project/.codex
+```
+
+If the project already has a `.codex/` directory, copy the generated contents into it and merge carefully with any existing Codex configuration:
+
+```
+cp -R dist/codex/.codex/* /path/to/your/project/.codex/
+```
+
+Then in Codex, invoke whichever council fits your phase.
+
+**Ideating a new project:**
+
+```
+@advisor-council-orchestrator I want to build a GMAT error dashboard that lets me upload missed questions, classify mistakes, and recommend drills.
+```
+
+**Trying to ship a partially-built project:**
+
+```
+@ship-council-orchestrator
+```
+
+The Advisor Council returns a markdown summary plus raw `FinalPlan` JSON. The Ship Council gathers repo state, attempts a runtime walkthrough with ask-before-side-effects rules, and returns a markdown ship plan plus raw `ShipPlan` JSON.
+
+## How the build works
+
+For each agent it:
+
+1. Reads the prompt body from `prompts/<council>/<name>.md`.
+2. Replaces the `{schema}` placeholder with the corresponding JSON schema as a fenced code block.
+3. Wraps the result as TOML `developer_instructions`.
+4. Writes the result to `dist/codex/.codex/agents/<name>.toml`.
+
+Each orchestrator also embeds its council's validation schemas because a target project may not have this repository's `schemas/` directory. It instructs Codex to spawn each specialist as a separate custom agent run and to retry once if a specialist returns invalid JSON.

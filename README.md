@@ -1,11 +1,11 @@
-# Project Councils
+# Project Council
 
 Panels of specialist LLM agents for each project lifecycle phase. Currently ships:
 
 - **Advisor Council** — for ideation. Produces a structured project plan from an idea.
 - **Ship Council** — for the final 20%. Audits a partially-built project and produces an actionable ship plan.
 
-Host-agnostic by design: prompts and schemas are plain markdown and JSON. A small build script wraps them in whichever host's native agent format you use (Claude Code today, Kiro and Codex later). Each council runs on **your existing subscription** for that host — no API keys, no per-call billing.
+Host-agnostic by design: prompts and schemas are plain markdown and JSON. A small build script wraps them in whichever host's native agent format you use (Claude Code and Codex today, Kiro later). Each council runs on **your existing subscription** for that host — no API keys, no per-call billing.
 
 ## Quick start (Claude Code)
 
@@ -33,6 +33,27 @@ That's the minimum. The orchestrator will infer goal, audience, and current stat
 audience: Show HN
 time_to_ship: by Sunday
 ```
+
+## Quick start (Codex)
+
+```
+npm run build:codex
+cp -R dist/codex/.codex /path/to/your/project/.codex
+```
+
+Then in Codex, invoke the council you need:
+
+```
+@advisor-council-orchestrator I want to build a GMAT error dashboard that lets me upload missed questions, classify mistakes, and recommend drills.
+```
+
+or:
+
+```
+@ship-council-orchestrator
+```
+
+If the target project already has a `.codex/` directory, copy the generated contents into it instead of replacing the whole directory.
 
 ## The two councils
 
@@ -82,7 +103,7 @@ schemas/         JSON Schema for each agent's structured output, organized by co
 hosts/           Per-host packaging.
   claude-code/   Builds all councils into dist/claude-code/agents/
   kiro/          Placeholder
-  codex/         Placeholder
+  codex/         Builds all councils into dist/codex/.codex/
 dist/            Generated agent files. Gitignored.
 examples/        Sample inputs for each council.
 AGENTS.md        System overview and design principles.
@@ -93,8 +114,8 @@ AGENTS.md        System overview and design principles.
 | Host | Advisor Council | Ship Council |
 |---|---|---|
 | Claude Code | ✅ | ✅ (uses tool access for repo gather) |
+| Codex | ✅ | ✅ (uses tool access for repo gather) |
 | Kiro | ⏳ Placeholder | ⏳ Placeholder (tool-use TBD) |
-| Codex CLI | ⏳ Placeholder | ⏳ Placeholder (tool-use TBD) |
 
 The Ship Council orchestrator uses `Read`, `Bash`, and `Glob` to gather repo state. Hosts that don't expose those tools fall back to a text-only mode (you supply `current_state` and `remaining_backlog` directly).
 

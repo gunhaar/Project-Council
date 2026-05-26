@@ -1,4 +1,4 @@
-# Project Councils — system overview
+# Project Council — system overview
 
 Specialist LLM councils for each project lifecycle phase. Everything is host-agnostic markdown plus JSON schemas, with thin per-host build scripts that wrap the shared core into native agent files.
 

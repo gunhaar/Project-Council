@@ -1,13 +1,13 @@
 {
-  "name": "project-councils",
+  "name": "project-council",
   "version": "0.2.0",
   "description": "Specialist LLM councils for each project lifecycle phase. Advisor Council for ideation, Ship Council for the final 20%. Host-agnostic prompts + per-host build scripts.",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "npm run build:claude-code",
+    "build": "npm run build:claude-code && npm run build:codex",
     "build:claude-code": "node hosts/claude-code/build.mjs",
-    "build:kiro": "node hosts/kiro/build.mjs",
+    "build:codex": "node hosts/codex/build.mjs",
     "clean": "rm -rf dist"
   },
   "license": "MIT"
