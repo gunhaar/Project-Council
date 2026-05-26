@@ -45,6 +45,16 @@ Then in Codex, invoke whichever council fits your phase.
 
 The Advisor Council returns a markdown summary plus raw `FinalPlan` JSON. The Ship Council gathers repo state, attempts a runtime walkthrough with ask-before-side-effects rules, and returns a markdown ship plan plus raw `ShipPlan` JSON.
 
+## Install globally for Codex
+
+To make the councils available in every Codex workspace on this machine:
+
+```
+npm run install:codex-global
+```
+
+This copies generated agent files into `~/.codex/agents/` and adds a managed Project Council block to `~/.codex/config.toml`.
+
 ## How the build works
 
 For each agent it:

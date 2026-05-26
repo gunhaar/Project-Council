@@ -8,6 +8,7 @@
     "build": "npm run build:claude-code && npm run build:codex",
     "build:claude-code": "node hosts/claude-code/build.mjs",
     "build:codex": "node hosts/codex/build.mjs",
+    "install:codex-global": "npm run build:codex && node hosts/codex/install-global.mjs",
     "clean": "rm -rf dist"
   },
   "license": "MIT"
