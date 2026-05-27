@@ -10,4 +10,4 @@ Kiro support is not yet implemented. The shared prompts in `prompts/` and schema
 
 ## Until then
 
-If you want to run the advisor board inside Kiro before this script exists, the cleanest workaround is to paste the contents of `prompts/orchestrator.md` (with the schemas inlined manually) as a Kiro agent prompt, and the five specialist prompts as separate Kiro agents that the orchestrator can call.
+If you want to run a council inside Kiro before this script exists, the cleanest workaround is to paste the relevant orchestrator prompt from `prompts/<council>/orchestrator.md` with the schemas inlined manually. For Advisor, wire the four specialist prompts and let the orchestrator synthesize the `FinalPlan`. For Ship, wire the six specialist prompts, including `ship-plan-synthesizer`.

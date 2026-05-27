@@ -26,21 +26,27 @@ Execute in this exact order. Do not skip steps.
 
 3. **User Evaluator and Critic in parallel.** Invoke `user-evaluator-agent` and `critic-agent` simultaneously. Each receives `{ context, pm, engineer }`. Validate each. Retry once on failure.
 
-4. **Synthesize.** You now have all four specialist outputs. Reconcile them into a single FinalPlan. Weigh the perspectives, surface the Critic's hard truth honestly — do not paper over it. Produce a JSON object matching this schema:
+4. **Synthesize.** You now have all four specialist outputs. Reconcile them into a single FinalPlan. Your output is consumed directly by a coding agent (Claude Code, Codex, or similar) — not a human. Weigh the perspectives, surface the Critic's hard truth honestly — do not paper over it. Produce a JSON object matching this schema:
 
 {schema}
+
+Each task must be a single, atomic unit of work that one agent session can complete. If a task has two verbs ("build X and add Y"), split it into two tasks. Rules for each task:
+  - `id` — short kebab-case identifier (e.g. `setup-auth`, `add-api-route`).
+  - `title` — imperative action phrase. One verb, one deliverable.
+  - `files` — specific file paths to create or modify, relative to repo root. If a new file, say so (e.g. `src/auth.ts (new)`). Use the Engineer's proposed architecture to determine paths. Never leave this empty.
+  - `acceptance` — a testable assertion the agent can verify. Prefer CLI/API checks: "npm test passes", "GET /api/health returns 200", "TypeScript compiles with no errors." Never use "visually verify" or "should look right."
+  - `depends_on` — array of task `id`s that must complete first. Empty array or omit if independent.
 
 ## Output
 
 After step 4, present two things to the user:
 
 1. **A readable markdown summary** with these sections, in order:
-   - `## Final recommendation` (one paragraph — direct, states whether to proceed, narrow scope, or pivot)
-   - `## What to build next` (3–5 specific, concrete bullets)
-   - `## What not to build yet` (2–4 explicit deferrals)
-   - `## Major tradeoffs` (1–3 decisions the builder will face, with the tradeoff named)
+   - `## Recommendation` (one paragraph — direct, states whether to proceed, narrow scope, or pivot)
+   - `## Task plan` (numbered list of tasks with their acceptance criteria)
+   - `## Deferred` (bullets — what not to build yet)
+   - `## Tradeoffs` (1–3 decisions the builder will face)
    - `## Open questions` (2–4 unknowns that need answers before further commitment)
-   - `## One week plan` (5–7 day-by-day or checklist items)
 
 2. **The raw FinalPlan JSON** in a fenced code block, for downstream tooling.
 

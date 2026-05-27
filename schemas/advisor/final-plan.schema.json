@@ -4,19 +4,31 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "final_recommendation",
-    "what_to_build_next",
-    "what_not_to_build_yet",
-    "major_tradeoffs",
-    "open_questions",
-    "one_week_plan"
+    "recommendation",
+    "tasks",
+    "deferred",
+    "tradeoffs",
+    "open_questions"
   ],
   "properties": {
-    "final_recommendation": { "type": "string" },
-    "what_to_build_next": { "type": "array", "items": { "type": "string" } },
-    "what_not_to_build_yet": { "type": "array", "items": { "type": "string" } },
-    "major_tradeoffs": { "type": "array", "items": { "type": "string" } },
-    "open_questions": { "type": "array", "items": { "type": "string" } },
-    "one_week_plan": { "type": "array", "items": { "type": "string" } }
+    "recommendation": { "type": "string" },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "files", "acceptance"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "files": { "type": "array", "items": { "type": "string" } },
+          "acceptance": { "type": "string" },
+          "depends_on": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "deferred": { "type": "array", "items": { "type": "string" } },
+    "tradeoffs": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } }
   }
 }

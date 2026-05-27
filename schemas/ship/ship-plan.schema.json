@@ -4,21 +4,33 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "final_verdict",
-    "shippable_definition",
-    "ship_blockers_ordered",
-    "post_ship_backlog",
+    "verdict",
+    "done_when",
+    "tasks",
+    "deferred",
     "killed",
-    "one_week_ship_plan",
-    "risks_on_ship_day"
+    "risks"
   ],
   "properties": {
-    "final_verdict": { "type": "string" },
-    "shippable_definition": { "type": "string" },
-    "ship_blockers_ordered": { "type": "array", "items": { "type": "string" } },
-    "post_ship_backlog": { "type": "array", "items": { "type": "string" } },
+    "verdict": { "type": "string" },
+    "done_when": { "type": "string" },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "files", "acceptance"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "files": { "type": "array", "items": { "type": "string" } },
+          "acceptance": { "type": "string" },
+          "depends_on": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "deferred": { "type": "array", "items": { "type": "string" } },
     "killed": { "type": "array", "items": { "type": "string" } },
-    "one_week_ship_plan": { "type": "array", "items": { "type": "string" } },
-    "risks_on_ship_day": { "type": "array", "items": { "type": "string" } }
+    "risks": { "type": "array", "items": { "type": "string" } }
   }
 }

@@ -77,6 +77,7 @@ examples/               Sample inputs you can feed to either council.
 - **Prompts live in markdown.** Easy to read, easy to edit, no code recompile to iterate.
 - **Host-specific packaging is thin.** The shared core never knows about Claude Code, Kiro, or Codex. Per-host build scripts wrap it.
 - **Orchestrators do live decision-making.** The specialists are structured single-shot LLM calls; the orchestrator is the actual agent loop.
+- **Agent-executable output.** Final plans are structured task lists with file paths, testable acceptance criteria, and dependency ordering — designed for direct handoff to a coding agent, not for human reading.
 - **Phase-specific councils, not one-council-fits-all.** Different lifecycle phases have different failure modes; different councils target them.
 - **Defer over speculate.** New councils land when a real project surfaces the gap, not before.
 - **No runtime dependencies.** The repo is markdown + JSON + a Node build script with zero npm deps.

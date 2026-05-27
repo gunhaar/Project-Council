@@ -52,17 +52,17 @@ or:
 @ship-council-orchestrator
 ```
 
-Codex uses a skill-first integration: the `project-council` skill triggers from those invocations, the main Codex agent orchestrates the council, and generic subagents handle specialist passes when useful. Legacy `.codex/agents` output is still generated for compatibility, but it is not the recommended Codex path.
+Codex uses a skill-first integration: the `project-council` skill triggers from those invocations, the main Codex agent orchestrates the council, and generic subagents handle specialist passes when useful. Advisor synthesis happens in the main Codex orchestrator; Ship still includes the `ship-plan-synthesizer` specialist pass. Legacy `.codex/agents` output is still generated for compatibility, but it is not the recommended Codex path.
 
 ## The two councils
 
 ### Advisor Council (ideation)
 
 ```
-PM  →  Engineer  →  (User Evaluator + Critic in parallel)  →  Synthesizer
+PM  →  Engineer  →  (User Evaluator + Critic in parallel)  →  Orchestrator synthesis
 ```
 
-PM defines the product. Engineer responds with a concrete plan. User Evaluator and Critic both attack that plan in parallel. Synthesizer reconciles into one `FinalPlan`.
+PM defines the product. Engineer responds with a concrete plan. User Evaluator and Critic both attack that plan in parallel. The orchestrator reconciles their outputs into one `FinalPlan`; there is no separate Advisor synthesizer agent.
 
 Output sections: final recommendation, what to build next, what not to build yet, major tradeoffs, open questions, one-week plan.
 
@@ -112,8 +112,8 @@ AGENTS.md        System overview and design principles.
 
 | Host | Advisor Council | Ship Council |
 |---|---|---|
-| Claude Code | ✅ | ✅ (uses tool access for repo gather) |
-| Codex | ✅ | ✅ (uses tool access for repo gather) |
+| Claude Code | ✅ named specialist subagents, orchestrator synthesis | ✅ named specialist subagents, including `ship-plan-synthesizer` |
+| Codex | ✅ skill-driven flow, orchestrator synthesis | ✅ skill-driven flow, including `ship-plan-synthesizer` as a specialist pass |
 | Kiro | ⏳ Placeholder | ⏳ Placeholder (tool-use TBD) |
 
 The Ship Council orchestrator uses `Read`, `Bash`, and `Glob` to gather repo state. Hosts that don't expose those tools fall back to a text-only mode (you supply `current_state` and `remaining_backlog` directly).
