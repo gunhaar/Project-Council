@@ -37,11 +37,10 @@ time_to_ship: by Sunday
 ## Quick start (Codex)
 
 ```
-npm run build:codex
-cp -R dist/codex/.codex /path/to/your/project/.codex
+npm run install:codex-global
 ```
 
-Then in Codex, invoke the council you need:
+Then start a fresh Codex thread in any repo and invoke the council you need:
 
 ```
 @advisor-council-orchestrator I want to build a GMAT error dashboard that lets me upload missed questions, classify mistakes, and recommend drills.
@@ -53,7 +52,7 @@ or:
 @ship-council-orchestrator
 ```
 
-If the target project already has a `.codex/` directory, copy the generated contents into it instead of replacing the whole directory.
+Codex uses a skill-first integration: the `project-council` skill triggers from those invocations, the main Codex agent orchestrates the council, and generic subagents handle specialist passes when useful. Legacy `.codex/agents` output is still generated for compatibility, but it is not the recommended Codex path.
 
 ## The two councils
 
@@ -103,7 +102,7 @@ schemas/         JSON Schema for each agent's structured output, organized by co
 hosts/           Per-host packaging.
   claude-code/   Builds all councils into dist/claude-code/agents/
   kiro/          Placeholder
-  codex/         Builds all councils into dist/codex/.codex/
+  codex/         Builds the Codex skill into dist/codex/skills/project-council/
 dist/            Generated agent files. Gitignored.
 examples/        Sample inputs for each council.
 AGENTS.md        System overview and design principles.
