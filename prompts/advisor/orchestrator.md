@@ -26,19 +26,21 @@ Execute in this exact order. Do not skip steps.
 
 3. **User Evaluator and Critic in parallel.** Invoke `user-evaluator-agent` and `critic-agent` simultaneously. Each receives `{ context, pm, engineer }`. Validate each. Retry once on failure.
 
-4. **Synthesizer.** Invoke `synthesizer-agent`. Provide `{ context, pm, engineer, user_evaluator, critic }`. Validate. Retry once on failure.
+4. **Synthesize.** You now have all four specialist outputs. Reconcile them into a single FinalPlan. Weigh the perspectives, surface the Critic's hard truth honestly — do not paper over it. Produce a JSON object matching this schema:
+
+{schema}
 
 ## Output
 
 After step 4, present two things to the user:
 
 1. **A readable markdown summary** with these sections, in order:
-   - `## Final recommendation` (one paragraph)
-   - `## What to build next` (bullets)
-   - `## What not to build yet` (bullets)
-   - `## Major tradeoffs` (bullets)
-   - `## Open questions` (bullets)
-   - `## One week plan` (numbered or bulleted checklist)
+   - `## Final recommendation` (one paragraph — direct, states whether to proceed, narrow scope, or pivot)
+   - `## What to build next` (3–5 specific, concrete bullets)
+   - `## What not to build yet` (2–4 explicit deferrals)
+   - `## Major tradeoffs` (1–3 decisions the builder will face, with the tradeoff named)
+   - `## Open questions` (2–4 unknowns that need answers before further commitment)
+   - `## One week plan` (5–7 day-by-day or checklist items)
 
 2. **The raw FinalPlan JSON** in a fenced code block, for downstream tooling.
 
@@ -49,3 +51,4 @@ After step 4, present two things to the user:
 - Never modify a specialist's output before passing it downstream.
 - If the Critic's `hard_truth` suggests not proceeding, surface that prominently in the recommendation paragraph — do not soften it.
 - Pass each specialist's full JSON output to the next stage that needs it. The Critic and User Evaluator both see PM and Engineer outputs in full.
+- The synthesis step is yours — do not delegate it to a subagent.

@@ -20,13 +20,12 @@ The Building Council is intentionally deferred. Its role overlaps with what the 
 | `engineer-agent` | Senior engineer. Proposes simplest architecture. | `schemas/advisor/engineer.schema.json` |
 | `user-evaluator-agent` | UX evaluator. Friction and magic moments. | `schemas/advisor/user-evaluator.schema.json` |
 | `critic-agent` | Skeptical critic. Hard truth. | `schemas/advisor/critic.schema.json` |
-| `synthesizer-agent` | Senior partner. Writes the final plan. | `schemas/advisor/final-plan.schema.json` |
-| `advisor-council-orchestrator` | Routes, validates, synthesizes. | (uses FinalPlan) |
+| `advisor-council-orchestrator` | Routes, validates, synthesizes the final plan. | `schemas/advisor/final-plan.schema.json` |
 
 Workflow:
 
 ```
-PM  →  Engineer  →  (User Evaluator + Critic in parallel)  →  Synthesizer
+PM  →  Engineer  →  (User Evaluator + Critic in parallel)  →  Orchestrator synthesizes
 ```
 
 Each downstream agent receives the original `ProjectContext` plus the relevant upstream outputs in full.

@@ -42,18 +42,11 @@ const councils = [
           "Skeptical critic. Names the hard truth and what to cut. Returns CriticOutput JSON. Invoked in parallel with the user-evaluator agent.",
       },
       {
-        name: "synthesizer-agent",
-        prompt: "synthesizer",
-        schema: "final-plan",
-        description:
-          "Synthesizer. Reconciles all four Advisor specialists into FinalPlan JSON.",
-      },
-      {
         name: "advisor-council-orchestrator",
         prompt: "orchestrator",
-        schema: null,
+        schema: "final-plan",
         description:
-          "Orchestrates the Advisor Council: sequences PM, Engineer, User Evaluator, Critic, and Synthesizer to produce a project plan. Invoke when the user wants a structured critique and plan for a project idea.",
+          "Orchestrates the Advisor Council: sequences PM, Engineer, User Evaluator, and Critic, then synthesizes a project plan. Invoke when the user wants a structured critique and plan for a project idea.",
         tools: "Task, Read",
       },
     ],
